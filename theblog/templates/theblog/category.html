@@ -13,8 +13,10 @@
 			  <div class="card-body">
 			    <h5 class="card-title">{{ post.title }}</h5>
 			    <p class="card-text">{{ post.body }}</p>
+			    {% if user.id == post.author.id %}
 			    <a href="{% url 'theblog:update-post' post.pk %}" class="card-link btn btn-primary mx-auto">Edit</a>
 				<a href="{% url 'theblog:delete-post' post.pk %}" class="card-link btn btn-danger mx-auto">Delete</a>
+				{% endif %}
 			  </div>
 			</div>
 		

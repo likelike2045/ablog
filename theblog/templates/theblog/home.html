@@ -1,6 +1,7 @@
 {% extends 'theblog/base.html' %}
 {% block title%}Home Page{% endblock %}
 {% block content %}
+	
 {% for post in object_list %}
 
 	<div class="card bg-light mb-3 mt-4" style="width: 18rem;">
@@ -11,7 +12,9 @@
 	    <h6 class="card-subtitle mb-2 text-muted mt-3">
 	    	<a href="{% url 'theblog:post-detail' post.pk %}">Post title: {{ post.title }}</a></h6>
 	    <p class="card-text">Post body: {{ post.body|truncatechars:70 }}</p>
+	    {% if user.id == post.author.id %}
 	    <a href="{% url 'theblog:update-post' post.pk %}" class="card-link">Edit Post</a>
+	    {% endif %}
 	    <a href="#" class="card-link mt-3">Post Author: {{ post.author.first_name }} {{ post.author.last_name }}</a>
 	  	</div>
 	</div>

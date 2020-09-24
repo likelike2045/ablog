@@ -18,7 +18,8 @@ class PostForm(forms.ModelForm):
 			# 'category':forms.Select(attrs={'class':'form-control'}),
 			'category_2':forms.Select(choices = cat_list, attrs={'class':'form-control'}),
 			'title':forms.TextInput(attrs={'class':'form-control'}),
-			'author':forms.Select(attrs={'class':'form-control'}),
+			'author':forms.TextInput(attrs={'class':'form-control','value':'','id':'elder','type':'hidden'}),
+			# 'author':forms.Select(attrs={'class':'form-control'}),
 			'body':forms.Textarea(attrs={'class':'form-control'}),
 		}
 

@@ -1,9 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404 , HttpResponseRedirect
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from .models import Category, Post, Category_2
 from .forms import PostForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.contrib import messages
+
+
+
+def CategoryView(request, cats):
+		category_posts = Post.objects.filter(category_2=cats)
+		cat_menu = Category_2.objects.all()
+		return render(request,'theblog/category.html', {'cats':cats,'category_posts':category_posts,'cat_menu':cat_menu})
+
+def LikeView(request, pk):
+	post = get_object_or_404(Post, id=request.POST.get('post_id'))
+	post.likes.add(request.user)
+	messages.success(request, f'You have liked a page')
+	return HttpResponseRedirect(reverse('theblog:post-detail',args=[str(pk)]))
+	# return HttpResponseRedirect(reverse('theblog:home'))
 
 
 
@@ -14,10 +29,6 @@ class CategoryCreateView(CreateView):
 	fields = '__all__'
 
 
-def CategoryView(request, cats):
-	category_posts = Post.objects.filter(category_2=cats)
-	cat_menu = Category_2.objects.all()
-	return render(request,'theblog/category.html', {'cats':cats,'category_posts':category_posts,'cat_menu':cat_menu})
 
 class PostListView(ListView):
 	model = Post
@@ -37,7 +48,10 @@ class PostDetailView(DetailView):
 	def get_context_data(self, *args, **kwargs):
 		cat_menu = Category_2.objects.all()
 		context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+		stuff = get_object_or_404(Post,id=self.kwargs['pk'])
+		total_likes = stuff.total_likes()
 		context["cat_menu"] = cat_menu
+		context["total_likes"] = total_likes
 		return context	
 
 class Category2CreateView(CreateView):
@@ -65,11 +79,17 @@ class PostUpdateView(UpdateView):
 	template_name = 'theblog/update_post.html'
 	fields = ['category','title','body']
 
+
 class PostDeleteView(DeleteView):
 	model = Post
 	# form_class = UpdateForm
 	template_name = 'theblog/delete_post.html'
 	success_url = reverse_lazy('theblog:home')
+	success_message = "Post was deleted successfully."
+
+	def delete(self, request, *args, **kwargs):
+		messages.success(self.request, self.success_message)
+		return super(PostDeleteView, self).delete(request, *args, **kwargs)
 	# success_url = reverse_lazy('theblog:home')
 # def detail(request, post_id):
 # 	try:

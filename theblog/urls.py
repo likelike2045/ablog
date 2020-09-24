@@ -18,5 +18,6 @@ urlpatterns = [
     path('create-category2/', Category2CreateView.as_view(), name='create-category2'),
     
     path('category/<str:cats>/', views.CategoryView, name='category'),
+    path('like/<int:pk>', views.LikeView, name='like-post'),
 ]
 
