@@ -11,13 +11,14 @@ for item in cats:
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ['category','title','author','category_2','body']
+		category_2 = 'category'
+		fields = ['category_2','title','author','body']
 
 		widgets = {
-			'category':forms.Select(attrs={'class':'form-control'}),
+			# 'category':forms.Select(attrs={'class':'form-control'}),
+			'category_2':forms.Select(choices = cat_list, attrs={'class':'form-control'}),
 			'title':forms.TextInput(attrs={'class':'form-control'}),
 			'author':forms.Select(attrs={'class':'form-control'}),
-			'category_2':forms.Select(choices = cat_list, attrs={'class':'form-control'}),
 			'body':forms.Textarea(attrs={'class':'form-control'}),
 		}
 

@@ -6,16 +6,16 @@
 	<div class="card bg-light mb-3 mt-4" style="width: 18rem;">
 	
 	  	<div class="card-body">
-	    <h5 class="card-title">Category : {{ post.category }}</h5>
+
 	    <h5 class="card-title"><a href="{% url 'theblog:category' post.category_2 %}">Category : {{ post.category_2 }}</a></h5>
 	    <h6 class="card-subtitle mb-2 text-muted mt-3">
 	    	<a href="{% url 'theblog:post-detail' post.pk %}">Post title: {{ post.title }}</a></h6>
-	    <p class="card-text">Post body: {{ post.body }}</p>
+	    <p class="card-text">Post body: {{ post.body|truncatechars:70 }}</p>
 	    <a href="{% url 'theblog:update-post' post.pk %}" class="card-link">Edit Post</a>
 	    <a href="#" class="card-link mt-3">Post Author: {{ post.author.first_name }} {{ post.author.last_name }}</a>
 	  	</div>
 	</div>
 
 {% endfor %}
-	
+
 {% endblock %}	
