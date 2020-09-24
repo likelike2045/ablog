@@ -1,0 +1,26 @@
+{% extends 'theblog/base.html' %}
+{% block title%}Home Page{% endblock %}
+{% block content %}
+
+<div class="container">
+
+		{% if user.is_authenticated %}
+			<h1 class="mt-4">Update Post</h1>
+			
+		<div class="form-group">
+				<form method="POST">{% csrf_token %}
+					{{ form.as_p }}
+				<button class="btn btn-primary">Update</button>
+			</form>
+		</div>
+		{% else %}
+		<h2>Please login to do that.</h2>
+		{% endif %}
+	
+</div>
+	
+	
+	
+{% endblock %}	
+</body>
+</html>

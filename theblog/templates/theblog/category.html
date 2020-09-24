@@ -1,0 +1,30 @@
+{% extends 'theblog/base.html' %}
+{% block title%}Category Page{% endblock %}
+{% block content %}
+
+		
+		<h1>Categories : {{ cats }}</h1>
+		{% for post in category_posts %}
+
+			<div class="card">
+			  <div class="card-header">
+			    Author: {{ post.author.first_name }} {{ post.author.last_name }}
+			  </div>
+			  <div class="card-body">
+			    <h5 class="card-title">{{ post.title }}</h5>
+			    <p class="card-text">{{ post.body }}</p>
+			    <a href="{% url 'theblog:update-post' post.pk %}" class="card-link btn btn-primary mx-auto">Edit</a>
+				<a href="{% url 'theblog:delete-post' post.pk %}" class="card-link btn btn-danger mx-auto">Delete</a>
+			  </div>
+			</div>
+		
+			
+			
+		{% endfor %}
+		
+		
+	  	
+	
+
+	
+{% endblock %}	

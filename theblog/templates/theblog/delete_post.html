@@ -1,0 +1,32 @@
+{% extends 'theblog/base.html' %}
+{% block title%}Home Page{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="mx-auto" style="width: 600px;">
+	<h1 class="mt-4">Delete Post...</h1>
+	<ul>
+		
+			<li>Category : {{ post.category }}</li>
+			<ul>
+				<li>Post title: {{ post.title }}</li>
+				<li>Post body: {{ post.body }}</li>
+				<li>Post Author: {{ post.author.first_name }} {{ post.author.last_name }}</li>
+			</ul>
+			
+		
+	</ul>
+	<div class="form-group">
+		<form method="POST">{% csrf_token %}
+			{{ form.as_p }}
+		<button class="btn btn-danger">Delete</button>
+		</form>
+	</div>
+	</div>
+</div>
+	
+	
+	
+{% endblock %}	
+</body>
+</html>
