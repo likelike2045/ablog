@@ -19,5 +19,7 @@ urlpatterns = [
     
     path('category/<str:cats>/', views.CategoryView, name='category'),
     path('like/<int:pk>', views.LikeView, name='like-post'),
+
+    path('datetime/', views.current_datetime, name='date-time')
 ]
 

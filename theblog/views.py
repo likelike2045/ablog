@@ -5,7 +5,12 @@ from .models import Category, Post, Category_2
 from .forms import PostForm
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
+import datetime
 
+def current_datetime(request):
+	now = datetime.datetime.now()
+	html = "<html><body>It is now %s.</body></html" % now
+	return HttpResponse(html)
 
 
 def CategoryView(request, cats):
