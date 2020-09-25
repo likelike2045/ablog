@@ -5,17 +5,23 @@
 	
 
 <div class="card">
-  <h5 class="card-header">Category : {{ post.category }} (Likes: {{ total_likes }})</h5>
+  <h5 class="card-header">Category : {{ post.category }}</h5>
   <div class="card-body">
     <h5 class="card-title">Post title: {{ post.title }}</h5>
     <p class="card-text">Post body: {{ post.body }} </p>
     <p>Post Author: {{ post.author.first_name }} {{ post.author.last_name }}</p>
     {% if user.is_authenticated %}
 	{% if user.id == post.author.id %}
-		<form action="{% url 'theblog:like-post' post.pk %}" method="POST">
+		<form action="{% url 'theblog:like-post' post.pk %}" method="POST" class="mb-2">
 			{% csrf_token %}
-			<button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
+			{% if liked %}
+			<button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">Unlike</button> ({{ total_likes }} likes)
+		
+			{% else %}
+			<button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button> ({{ total_likes }} likes)
+			{% endif %}
 		</form>
+		
 		<a href="{% url 'theblog:update-post' post.pk %}" class="card-link btn btn-primary">Edit</a>
 		<a href="{% url 'theblog:delete-post' post.pk %}" class="card-link btn btn-danger">Delete</a>
 	{% endif %}
@@ -23,7 +29,7 @@
 </div>
 
 	{% else %}
-	<h2>Please login to do that.</h2>
+	<small>Please <a href="{% url 'login' %}">login</a> to comment a like.</small>
 	{% endif %}
 
 {% endblock %}	

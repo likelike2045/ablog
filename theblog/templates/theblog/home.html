@@ -11,7 +11,7 @@
 	    <h5 class="card-title"><a href="{% url 'theblog:category' post.category_2 %}">Category : {{ post.category_2 }}</a></h5>
 	    <h6 class="card-subtitle mb-2 text-muted mt-3">
 	    	<a href="{% url 'theblog:post-detail' post.pk %}">Post title: {{ post.title }}</a></h6>
-	    <p class="card-text">Post body: {{ post.body|truncatechars:70 }}</p>
+	    <p class="card-text">Post body: {{ post.body|truncatechars:70|safe }}</p>
 	    {% if user.id == post.author.id %}
 	    <a href="{% url 'theblog:update-post' post.pk %}" class="card-link">Edit Post</a>
 	    {% endif %}
