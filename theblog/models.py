@@ -30,6 +30,7 @@ class Post(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 	post_date = models.DateField(auto_now_add=True)
 	category_2 = models.CharField(max_length=255, default='coding')
+	snippet = models.CharField(max_length=255, default='click to read more...')
 	likes = models.ManyToManyField(User, related_name='blog_posts')
 
 	def total_likes(self):

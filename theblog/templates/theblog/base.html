@@ -37,7 +37,12 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'theblog:add-post' %}">Add Post</a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{% url 'members:edit-profile' %}">Edit Profile</a>
+         
+       </li>
         <li class="nav-item">
+         
          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
        </li>
        {% else %}
