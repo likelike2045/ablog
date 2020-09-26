@@ -4,6 +4,13 @@ from django.urls import reverse
 from ckeditor.fields import RichTextField
 # Create your models here.
 
+class Profile(models.Model):
+	user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+	bio = models.TextField()
+
+	def __str__(self):
+		return str(self.user)
+
 class Category(models.Model):
 	name=models.CharField(max_length=255)
 
@@ -24,6 +31,7 @@ class Category_2(models.Model):
 
 class Post(models.Model):
 	title = models.CharField(max_length=255)
+	header_image = models.ImageField(null=True, blank=True, upload_to='images/')
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	body = RichTextField(blank = True, null=True)
 	# body = models.TextField()
@@ -31,7 +39,7 @@ class Post(models.Model):
 	post_date = models.DateField(auto_now_add=True)
 	category_2 = models.CharField(max_length=255, default='coding')
 	snippet = models.CharField(max_length=255, default='click to read more...')
-	likes = models.ManyToManyField(User, related_name='blog_posts')
+	likes = models.ManyToManyField(User, related_name='blog_posts', null=True)
 
 	def total_likes(self):
 		return self.likes.count()

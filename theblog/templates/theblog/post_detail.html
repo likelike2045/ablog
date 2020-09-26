@@ -8,6 +8,9 @@
   <h5 class="card-header">Category : {{ post.category }}</h5>
   <div class="card-body">
     <h5 class="card-title">Post title: {{ post.title }}</h5>
+    {% if post.header_image %}
+    	<img src="{{post.header_image.url}}">
+    {% endif %}
     <p class="card-text">Post body: {{ post.body }} </p>
     <p>Post Author: {{ post.author.first_name }} {{ post.author.last_name }}</p>
     {% if user.is_authenticated %}

@@ -11,8 +11,8 @@ for item in cats:
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		category_2 = 'category'
-		fields = ['category_2','title','author','body']
+
+		fields = ['category_2','title','author','body', 'header_image']
 
 		widgets = {
 			# 'category':forms.Select(attrs={'class':'form-control'}),
